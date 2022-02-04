@@ -80,6 +80,11 @@
 // Displays the Center Popup, Interstitial and Web Interstitial.
 - (void)showPopup
 {
+    // Need to show popup only when homepage's coachmark already shown
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"homepage_coachmark_shown"]) {
+        return;
+    }
+    
     // UI can't be modified in background.
     if (![NSThread isMainThread]) {
         dispatch_sync(dispatch_get_main_queue(), ^{

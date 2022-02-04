@@ -22,6 +22,11 @@
                              [LPActionArg argNamed:LPMT_ARG_DISMISS_ACTION withAction:nil]
                              ]
              withResponder:^BOOL(LPActionContext *context) {
+                 // Need to show popup only when homepage's coachmark already shown
+                 if (![[NSUserDefaults standardUserDefaults] boolForKey:@"homepage_coachmark_shown"]) {
+                     return NO;
+                 }
+        
                  @try {
                      [[self visibleViewController] presentViewController:[self viewControllerWithContext:context] animated:YES completion:nil];
                      [self.contexts addObject:context];
