@@ -11,6 +11,23 @@
 
 @implementation LPBaseInterstitialMessageTemplate
 
+- (id)init
+{
+    if (self = [super init]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(dismiss)
+                                                     name:@"LEANPLUM_POPUP_DISMISS"
+                                                   object:nil];
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"LEANPLUM_POPUP_DISMISS"
+                                                  object:nil];
+}
+
 #pragma mark Interstitial logic
 
 - (void)accept
